@@ -1,46 +1,73 @@
-syntax on
+set nocompatible
+set backspace=indent,eol,start
+set smartindent
+filetype plugin indent on
+packadd minpac
+call minpac#init()
+call minpac#add('k-takata/minpac', {'type':'opt'})
+call minpac#add('qpkorr/vim-renamer', {'type':'opt'})
+call minpac#add('tpope/vim-surround')
+call minpac#add('vim-airline/vim-airline')
+command! PackUpdate call minpac#update()
+command! PackClean call minpac#clean()
+
+
 set number
-set nocompatible              " be iMproved, required
-filetype off                  " required
+syntax enable
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+set background=dark
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+" Display all matching files when we tab complete
+set wildmenu
 
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-Plugin 'pangloss/vim-javascript'
-" Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-" Plugin 'L9'
-" Git plugin not hosted on GitHub
-" Plugin 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-" Plugin 'file:///home/gmarik/path/to/plugin'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Install L9 and avoid a Naming conflict if you've already installed a
-" different version somewhere else.
-" Plugin 'ascenator/L9', {'name': 'newL9'}
+" Make sure that unsaved buffers that are to be put in the background are
+" allowed to go in there(ie. the "must save first" error don't come up)
+set hidden
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+let mapleader="," 
+nnoremap <c-e> ,
+vnoremap <c-e> ,
+
+" Expand the directory of the current file anywhere.
+cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
+map <leader>ew :e %%
+map <leader>es :sp %%
+map <leader>ev :vsp %%
+map <leader>et :tabe %%
+
+set ignorecase
+set smartcase
+
+set foldmethod=indent
+set foldlevel=99
+nnoremap <space> za
+" use zo and zc to fold and unfold in normal mode
+" use zR and zM to fold and unfold all folds
+
+set shiftwidth=4
+set tabstop=4
+" Turn tabs into spaces
+set expandtab
+
+" Set visual bell -- I hate that damned beeping
+" set vb
+
+" FuzzyFinder Settings
+nmap ,fb :FuzzyFinderBuffer<CR>
+nmap ,ff :FuzzyFinderFile<CR>
+nmap ,ft :FuzzyFinderTag<CR>
+
+set virtualedit=all
+
+" set nowrap
+
+" nnoremap <leader>ev :split $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+
+iabbrev @@ yzwdroid@gmail.com
+
+inoremap jk <esc>
+" inoremap <esc> <nop>
+
+"Xshell color airline
+ set t_Co=256
